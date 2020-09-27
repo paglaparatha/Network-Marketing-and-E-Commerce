@@ -1,0 +1,7 @@
+{
+  "name": "networkX",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
