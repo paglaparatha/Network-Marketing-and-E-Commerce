@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="shop/cart"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Checkout</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3" class="ion-padding">
+        <ion-list *ngIf="!addresses">
+          <ion-item *ngFor="let i of [1,2,3,4,5]">
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+              <h3>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ng-container *ngIf="addresses && addresses.length == 0">
+          <h1>No address found..</h1>
+          <p>Looks like you have no address stored, create one now to get your product delivered.</p>
+        </ng-container>
+
+        <form (ngSubmit)="onCheckOut(checkout)" #checkout="ngForm">
+          <ion-list>
+            <ion-radio-group required ngModel name="address_id">
+              <h1>Select Address</h1>
+          
+              <ion-item *ngFor="let addr of addresses">
+                <ion-label>
+                  <strong>{{ user.name }}</strong><br>
+                  {{ addr.house }} <br>
+                  {{ addr.area }}, {{ addr.town }} <br>
+                  {{ addr.state }} <br>
+                  {{ addr.pin }}
+                </ion-label>
+                <ion-radio slot="start" [value]="addr.id"></ion-radio>
+              </ion-item>
+          
+            </ion-radio-group>
+          </ion-list>
+
+          <ion-button type="submit" expand="block" [disabled]="!checkout.valid">
+            Checkout <ion-icon name="send" slot="end"></ion-icon>
+          </ion-button>          
+        </form>
+
+        <form (ngSubmit)="onAddAddress(newAddr)" #newAddr="ngForm">
+          <h1>Add new address</h1>
+          <ion-item>
+            <ion-label>Select State*</ion-label>
+            <ion-select value="" required name="state" ngModel interface="action-sheet">
+              <ion-select-option value="Andhra Pradesh">Andhra Pradesh</ion-select-option>
+              <ion-select-option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</ion-select-option>
+              <ion-select-option value="Arunachal Pradesh">Arunachal Pradesh</ion-select-option>
+              <ion-select-option value="Assam">Assam</ion-select-option>
+              <ion-select-option value="Bihar">Bihar</ion-select-option>
+              <ion-select-option value="Chandigarh">Chandigarh</ion-select-option>
+              <ion-select-option value="Chhattisgarh">Chhattisgarh</ion-select-option>
+              <ion-select-option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</ion-select-option>
+              <ion-select-option value="Daman and Diu">Daman and Diu</ion-select-option>
+              <ion-select-option value="Delhi">Delhi</ion-select-option>
+              <ion-select-option value="Lakshadweep">Lakshadweep</ion-select-option>
+              <ion-select-option value="Puducherry">Puducherry</ion-select-option>
+              <ion-select-option value="Goa">Goa</ion-select-option>
+              <ion-select-option value="Gujarat">Gujarat</ion-select-option>
+              <ion-select-option value="Haryana">Haryana</ion-select-option>
+              <ion-select-option value="Himachal Pradesh">Himachal Pradesh</ion-select-option>
+              <ion-select-option value="Jammu and Kashmir">Jammu and Kashmir</ion-select-option>
+              <ion-select-option value="Jharkhand">Jharkhand</ion-select-option>
+              <ion-select-option value="Karnataka">Karnataka</ion-select-option>
+              <ion-select-option value="Kerala">Kerala</ion-select-option>
+              <ion-select-option value="Madhya Pradesh">Madhya Pradesh</ion-select-option>
+              <ion-select-option value="Maharashtra">Maharashtra</ion-select-option>
+              <ion-select-option value="Manipur">Manipur</ion-select-option>
+              <ion-select-option value="Meghalaya">Meghalaya</ion-select-option>
+              <ion-select-option value="Mizoram">Mizoram</ion-select-option>
+              <ion-select-option value="Nagaland">Nagaland</ion-select-option>
+              <ion-select-option value="Odisha">Odisha</ion-select-option>
+              <ion-select-option value="Punjab">Punjab</ion-select-option>
+              <ion-select-option value="Rajasthan">Rajasthan</ion-select-option>
+              <ion-select-option value="Sikkim">Sikkim</ion-select-option>
+              <ion-select-option value="Tamil Nadu">Tamil Nadu</ion-select-option>
+              <ion-select-option value="Telangana">Telangana</ion-select-option>
+              <ion-select-option value="Tripura">Tripura</ion-select-option>
+              <ion-select-option value="Uttar Pradesh">Uttar Pradesh</ion-select-option>
+              <ion-select-option value="Uttarakhand">Uttarakhand</ion-select-option>
+              <ion-select-option value="West Bengal">West Bengal</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Enter Pin*</ion-label>
+            <ion-input type="number" pattern="[0-9]{6}" required ngModel name="pin"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Flat, House no., Apartment*</ion-label>
+            <ion-input type="text" required ngModel name="house"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Area, Colony, Streer, Sector*</ion-label>
+            <ion-input type="text" required ngModel name="area"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Landmark e.g. near Apollo Hospital*</ion-label>
+            <ion-input type="text" required ngModel name="landmark"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Town/City*</ion-label>
+            <ion-input type="text" required ngModel name="town"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-button type="submit" expand="block" [disabled]="!newAddr.valid">
+            Save <ion-icon name="home" slot="end"></ion-icon>
+          </ion-button>
+        </form>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

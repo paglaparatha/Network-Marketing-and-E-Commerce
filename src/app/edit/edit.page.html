@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="drawer"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Edit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loader" *ngIf="!user">
+    <div class="loading-screen ion-padding">
+      <ion-item lines="none">
+        <ion-label>Loading...</ion-label>
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ng-container *ngIf="user">
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <strong>Edit Profile</strong>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form class="ion-padding" (ngSubmit)="onEditProfile(editProfile)" #editProfile="ngForm">
+
+                <ion-item>
+                  <ion-label position="floating">Enter Name*</ion-label>
+                  <ion-input type="text" inputmode="text" name="name" ngModel [(ngModel)]="user.name" required>
+                  </ion-input>
+                </ion-item>
+                <br>
+
+                <ion-item>
+                  <ion-label position="floating">Enter Email*</ion-label>
+                  <ion-input type="email" inputmode="email" email ngModel name="email" [(ngModel)]="user.email"
+                    required>
+                  </ion-input>
+                </ion-item>
+                <br>
+
+                <ion-item>
+                  <ion-label position="floating">Enter Aadhaar*</ion-label>
+                  <ion-input type="number" inputmode="numeric" pattern="[0-9]{12}" ngModel name="aadhaar"
+                    [(ngModel)]="user.aadhaar" required></ion-input>
+                </ion-item>
+                <br>
+
+                <ion-item>
+                  <ion-label position="floating">Enter Mobile*</ion-label>
+                  <ion-input type="tel" inputmode="tel" pattern="[6-9]{1}[0-9]{9}" ngModel name="mobile"
+                    [(ngModel)]="user.mobile" required></ion-input>
+                </ion-item>
+                <br>
+
+                <ion-button type="submit" expand="block" [disabled]="!editProfile.valid">Update <ion-icon
+                    name="create-outline" slot="end"></ion-icon>
+                </ion-button>
+
+              </form>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card class="ion-margin-top">
+            <ion-card-header>
+              <ion-card-title>
+                <strong>Update Image</strong>
+              </ion-card-title>
+              <img [src]="path+user.image" class="rounded" />
+            </ion-card-header>
+            <ion-card-content>
+              <form class="ion-padding" (ngSubmit)="onEditImage(editImage)" #editImage="ngForm">
+                <ion-item>
+                  <ion-label position="stacked">Upload Image</ion-label>
+                  <ion-input type="file" required ngModel name="file" (change)="handleFileInput($event.target.files)"
+                    accept="image/*"></ion-input>
+                </ion-item>
+                <br>
+
+                <ion-button type="submit" expand="block" [disabled]="!editImage.valid">Update <ion-icon
+                    name="person-sharp" slot="end"></ion-icon>
+                </ion-button>
+              </form>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card class="ion-margin-top">
+            <ion-card-header>
+              <ion-card-title>
+                <strong>Change Password</strong>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form class="ion-padding" (ngSubmit)="onChangePassword(chngPwd)" #chngPwd="ngForm">
+                <ion-item>
+                  <ion-label position="floating">Enter Current Password*</ion-label>
+                  <ion-input type="password" name="cpass" ngModel required></ion-input>
+                </ion-item>
+                <br>
+
+                <ion-item>
+                  <ion-label position="floating">Enter New Password*</ion-label>
+                  <ion-input type="password" name="npass1" [(ngModel)]="npass1" minlength="8" ngModel required>
+                  </ion-input>
+                </ion-item>
+                <br>
+
+                <ion-item>
+                  <ion-label position="floating">Confirm New Password*</ion-label>
+                  <ion-input type="password" name="npass2" [(ngModel)]="npass2" minlength="8" ngModel required>
+                  </ion-input>
+                </ion-item>
+                <br>
+
+                <ion-button type="submit" expand="block" *ngIf="onVerifyPasswords()" [disabled]="!chngPwd.valid">Update
+                  <ion-icon name="key-sharp" slot="end"></ion-icon>
+                </ion-button>
+              </form>
+            </ion-card-content>
+          </ion-card>
+
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

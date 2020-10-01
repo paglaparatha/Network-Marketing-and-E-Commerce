@@ -1,0 +1,13 @@
+.full-page {
+    height: 100vh !important;
+    width: 100vw !important;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+      height: 10rem;
+    }
+  }
+  

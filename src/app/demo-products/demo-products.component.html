@@ -1,0 +1,78 @@
+<ng-container *ngIf="!products">
+  <ion-list>
+    <ion-list-header>
+      <h1 class="ion-text-center" style="width: 100%;">
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      </h1>
+    </ion-list-header>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text animated style="height: 8rem; width: 100%;"></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ng-container>
+
+<ng-container *ngIf="products && user && products.length > 0">
+  <div class="ion-padding-horizontal">
+    <h2 class="ion-text-center">Our Products</h2>
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide [routerLink]="['/shop/product', product.id]" *ngFor="let product of products">
+        <div class="ion-padding">
+          <img [src]="path+product.image" class="product-img" alt="">
+          <p class="ion-text-center"><b>{{ product.name }}</b></p>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12" class="ion-text-center ion-margin-bottom">
+        <ion-button color="tertiary" [routerLink]="['/shop/products/all/1']">View All</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>
+
+<ng-container *ngIf="products && products.length == 0">
+  <div class="ion-padding">
+    <p class="ion-text-center">
+      Looks like {{ user.company | titlecase }} hasn't added products yet.
+      <br>
+      Visit <strong><a href="#" [routerLink]="['/shop']">Shop</a></strong> to stay updated!
+    </p>
+  </div>
+</ng-container>

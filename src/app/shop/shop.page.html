@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar mode="md">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="drawer"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Shop</ion-title>
+    <ion-buttons slot="end">
+      <app-shop-nav></app-shop-nav>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <app-loader *ngIf="!sliders"></app-loader>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3" class="ion-no-padding">
+        <ng-container *ngIf="sliders">
+
+          <ion-slides pager="true" [options]="slideOpts">
+            <ion-slide *ngFor="let slide of sliders">
+              <div class="slide-img">
+                <img [src]="path+slide.image" (load)="slide.loaded = true" [hidden]="!slide.loaded" class="slide-img"
+                  alt="">
+                <img src="assets/loading.gif" [hidden]="slide.loaded" class="slide-img" alt="">
+              </div>
+            </ion-slide>
+          </ion-slides>
+
+          <div class="ion-padding">
+            <h2 class="ion-text-center">Our Categories</h2>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-padding" size="6" [routerLink]="['products/', category.name, 1]" *ngFor="let category of categories">
+                  <img [src]="path+category.image" (load)="category.loaded = true" [hidden]="!category.loaded"
+                    class="category-img" alt="">
+                  <img src="assets/loading.gif" [hidden]="category.loaded" class="category-img" alt="">
+                  <p class="ion-text-center"><b>{{ category.name }}</b></p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <app-demo-products></app-demo-products>
+
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

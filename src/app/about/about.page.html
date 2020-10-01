@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>About</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="loader" *ngIf="!user">
+    <div class="loading-screen ion-padding">
+      <ion-item lines="none">
+        <ion-label>Loading...</ion-label>
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" *ngIf="user" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <img [src]="path + user.company_img" width="100%" height="100%" />
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ng-container *ngIf="user">
+
+          <ion-card>
+            <ion-card-header>
+              <img [src]="path + user.image" [alt]="user.name" />
+              <ion-card-subtitle>
+                <br>
+                <p>{{ user.company }} member,</p>
+              </ion-card-subtitle>
+              <ion-card-title>
+                <ion-text color="tertiary">
+                  <h1>{{ user.name }}</h1>
+                </ion-text>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <h1>About</h1>
+              <br>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="4"><strong>Name: </strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.name }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Email: </strong></ion-col>
+                  <ion-col size="8"><a href="mailto:{{ user.email }}" target="_blank">{{ user.email }}</a></ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Phone: </strong></ion-col>
+                  <ion-col size="8"><a href="tel:{{ user.mobile }}" target="_blank">{{ user.mobile }}</a></ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Date of birth: </strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.dob }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Referral: </strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.my_ref }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Aadhaar: </strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.aadhaar }}</ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <br>
+
+              <h1>Network</h1>
+              <br>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="4"><strong>Size:</strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.all_underlings.length }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Underlings:</strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.immediate_underlings_count }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="4"><strong>Net Income:</strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">₹{{ user.income }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="user.super_ref !== 'null'">
+                  <ion-col size="4"><strong>Referred at:</strong></ion-col>
+                  <ion-col size="8">
+                    <ion-text color="primary">{{ user.super_ref }}</ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-slides pager="true" [options]="slideOpts">
+                    <ion-slide class="ion-padding-vertical" *ngFor="let underling of user.immediate_underlings">
+                      <div [routerLink]="['/about', underling.email]">
+                        <img [src]="path+underling.image" [alt]="underling.name" class="rounded">
+                        <strong>{{ underling.name }}</strong>
+                        <br>
+                        <br>
+                      </div>
+                    </ion-slide>
+                  </ion-slides>
+                </ion-row>
+              </ion-grid>
+
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

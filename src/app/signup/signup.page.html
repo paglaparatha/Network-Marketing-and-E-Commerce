@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <form class="ion-padding" (ngSubmit)="onSignUp(signup)" #signup="ngForm">
+          <ion-item>
+            <ion-label position="floating">Enter Name*</ion-label>
+            <ion-input type="text" required ngModel name="name"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Enter Email*</ion-label>
+            <ion-input type="email" required email ngModel name="email"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Enter Password*</ion-label>
+            <ion-input type="password" minlength="8" required ngModel name="password"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="stacked">Enter Date Of Birth*</ion-label>
+            <ion-input type="date" required ngModel name="dob"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Enter Aadhaar Number*</ion-label>
+            <ion-input type="number" pattern="[0-9]{12}" required ngModel name="aadhaar"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Enter Phone*</ion-label>
+            <ion-input type="tel" pattern="[6-9]{1}[0-9]{9}" required ngModel name="mobile"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label>Company</ion-label>
+            <ion-select value="Select Company" name="company" ngModel required interface="action-sheet">
+              <ion-select-option [value]="com.name" *ngFor="let com of companies">{{ com.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Enter Referal</ion-label>
+            <ion-input type="text" ngModel name="super_ref" pattern="[A-Z]{3}[-]{1}[A-Za-z0-9]{5}"></ion-input>
+          </ion-item>
+
+          <br>
+          <ion-button type="submit" expand="block" [disabled]="!signup.valid">Sign Up <ion-icon name="create-outline"
+              slot="end"></ion-icon>
+          </ion-button>
+          <br>
+
+          <p class="text-center">Already have an account <strong><a href="#" [routerLink]="['/login']">Sign
+                In</a></strong>
+            here</p>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

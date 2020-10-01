@@ -1,0 +1,4 @@
+<ion-button id="cart-btn" [routerLink]="['/shop/cart']">
+  <ion-icon name="cart" slot="icon-only"></ion-icon>
+  <ion-badge *ngIf="cartLen && cartLen > 0" id="cart-badge" color="danger" mode="ios">{{ cartLen <= 9 ? cartLen: '9+' }}</ion-badge>
+</ion-button>

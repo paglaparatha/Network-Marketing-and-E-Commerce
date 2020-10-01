@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <img src="assets/logo.png" alt="">
+        <div class="ion-text-center ion-padding-horizontal">
+          <strong>Welcome to,</strong>
+          <h1>Network X</h1>
+        </div>
+        <form class="ion-padding" (ngSubmit)="onLogin(login)" #login="ngForm">
+          <ion-item>
+            <ion-label position="floating">Enter Email*</ion-label>
+            <ion-input type="email" required email ngModel name="email"></ion-input>
+          </ion-item>
+          <br>
+
+          <ion-item>
+            <ion-label position="floating">Enter Password*</ion-label>
+            <ion-input type="password" required ngModel name="password"></ion-input>
+          </ion-item>
+          <br>
+
+          <br>
+          <ion-button type="submit" expand="block" [disabled]="!login.valid">Sign In <ion-icon name="log-in-outline"
+              slot="end"></ion-icon>
+          </ion-button>
+          <br>
+
+          <p class="text-center">Already have an account <strong><a href="#" [routerLink]="['/signup']">Sign
+                Up</a></strong> here</p>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

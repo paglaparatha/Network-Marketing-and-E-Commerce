@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="shop"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="cart && cart.length == 0">
+    <div class="full-page">
+      <img src="assets/no-products-found.png" alt="">
+      <h4>Your cart is empty!</h4>
+      <ion-button color="tertiary" [routerLink]="['/shop']">
+        <ion-icon name="arrow-back" slot="start"></ion-icon>
+        Go Back
+      </ion-button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="cart && cart.length > 0">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="6" offset-lg="3" class="ion-padding-horizontal">
+          <h2>Review your cart</h2>
+          Subtotal ({{ cart.length }} item{{ cart.length > 1 ? 's' : '' }}): <strong>₹{{ totalCost }}</strong>
+
+          <ion-list>
+
+            <ion-item-sliding *ngFor="let item of cart">
+              <ion-item>
+                <ion-thumbnail slot="start">
+                  <img [src]="path+item.Product.image" alt="">
+                </ion-thumbnail>
+                <ion-label>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="9">
+                        <strong>{{ item.Product.name }}</strong>
+                        <br>
+                        <p>₹{{ item.Product.price }}</p>
+                      </ion-col>
+                      <ion-col size="3" class="ion-padding-horizontal">
+                        <strong>X{{ item.Quantity }}</strong>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-label>
+              </ion-item>
+
+              <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="onRemoveProduct(item)" >
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+
+          </ion-list>
+
+          <ion-button color="tertiary" expand="block" [routerLink]="['/shop/checkout']">
+            Proceed
+            <ion-icon name="chevron-forward-circle-outline" slot="end"></ion-icon>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+</ion-content>

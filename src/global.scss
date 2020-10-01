@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,42 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.text-center {
+  text-align: center;
+  margin: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.ion-touched.ion-invalid {
+  color: firebrick;
+}
+
+.loader {
+  height: 100vh;
+  background: rgba($color: #000000, $alpha: 0.3);
+  position: fixed;
+  width: 100%;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loading-screen {
+    width: 60%;
+    margin: auto;
+    background: white;
+    box-shadow: 0.2rem 0.2rem 0.3rem rgba($color: #000000, $alpha: 0.3);
+  }
+}
+
+.rounded {
+  display: block;
+  margin: auto;
+  height: 7rem !important;
+  width: 7rem !important;
+  border-radius: 50% !important;
+}

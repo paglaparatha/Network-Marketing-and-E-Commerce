@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="!myOrders">
+
+    <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list *ngIf="myOrders && myOrders.length > 0">
+    <ion-item [routerLink]="['/shop/product', order.product_id]" *ngFor="let order of myOrders">
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="4">
+              <img [src]="path+order.image" style="height: 7.5rem; width: 100%;">
+            </ion-col>
+            <ion-col size="8">
+              <ion-label>
+                <h1>{{ order.name }}</h1>
+                <p>Quantity: {{ order.quantity }}</p>
+                <p>{{ order.category }}</p>
+                <p>{{ order.date }}</p>
+                <p>₹{{ +order.price * order.quantity }}</p>
+                <strong style="font-size: 0.8rem;">{{ order.order_id }}</strong>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ng-container *ngIf="myOrders && myOrders.length == 0">
+    <div class="full-page">
+      <img src="assets/no-products-found.png" alt="">
+      <h4>You haven't ordered anything!</h4>
+      <ion-button color="tertiary" [routerLink]="['/shop']">
+        Shop Now
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+  </ng-container>
+
+</ion-content>

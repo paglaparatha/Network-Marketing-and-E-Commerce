@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="shop"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Products</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loader *ngIf="!products"></app-loader>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3" class="ion-no-padding">
+        <ng-container class="ion-margin" *ngIf="products && products.length > 0">
+          <h2 class="ion-text-center">Viewing {{ category | titlecase }} Products</h2>
+          <ion-grid class="main-card">
+            <ion-row>
+              <ion-col size="6" [routerLink]="['/shop/product', product.id]" *ngFor="let product of products">
+                <ion-card mode="md">
+                  <img [src]="path+product.image" alt="" class="product-img">
+                  <ion-card-header>
+                    <ion-card-title>
+                      <strong>{{ product.name }}</strong>
+                    </ion-card-title>
+                    <ion-card-subtitle>
+                      <strong>₹{{ product.price }}</strong>
+                    </ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid class="ion-padding">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="6" class="ion-text-center">
+                <ion-button color="tertiary" [disabled]="page-1 <= 0"
+                  [routerLink]="['/shop/products', category, page-1]">
+                  <ion-icon name="chevron-back-outline" slot="start"></ion-icon>
+                  Prev
+                </ion-button>
+              </ion-col>
+              <ion-col size="6" class="ion-text-center">
+                <ion-button color="tertiary" [disabled]="page+1 > totalPages"
+                  [routerLink]="['/shop/products', category, page+1]">
+                  <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+                  Next
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-container>
+
+        <ng-container *ngIf="products && products.length == 0">
+          <div class="full-page">
+            <img src="assets/no-products-found.png" alt="">
+            <h4>Oops.. No products found!</h4>
+            <ion-button color="tertiary" [routerLink]="['/shop']">Go Back</ion-button>
+          </div>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
