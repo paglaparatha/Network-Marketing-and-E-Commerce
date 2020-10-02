@@ -36,7 +36,7 @@ $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'tif');
 
 
 
-$con = new mysqli('localhost', 'beardcod_barney', 'Pata nahi', 'beardcod_networkx');
+$con = new mysqli('localhost', 'root', '', 'networkx');
 //$2y$10$sqahb9LsEFFn/Ig/xsZXkOdax8xoqMSMDP6ehcON8pdSueZNxCxcS
 
 //Default Password: hello admin
